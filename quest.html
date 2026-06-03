@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Birthday Quest</title>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+.question-box{
+background:white;
+padding:30px;
+border-radius:20px;
+max-width:700px;
+margin:30px auto;
+box-shadow:0 5px 15px rgba(0,0,0,.1);
+}
+
+.answer-btn{
+display:block;
+width:100%;
+padding:15px;
+margin:10px 0;
+border:none;
+border-radius:12px;
+cursor:pointer;
+font-size:16px;
+}
+
+.answer-btn:hover{
+transform:scale(1.02);
+}
+
+#result{
+display:none;
+margin-top:30px;
+}
+
+.score{
+font-size:1.3rem;
+font-weight:bold;
+margin-top:15px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<nav>
+
+<a href="index.html">Home</a>
+<a href="about.html">About</a>
+<a href="cake.html">Cake</a>
+
+</nav>
+
+<div class="container">
+
+<h1>🎯 Birthday Quest 🎯</h1>
+
+<p>
+Complete the quest to unlock the final surprise.
+</p>
+
+<div class="question-box">
+
+<h2 id="question"></h2>
+
+<div id="answers"></div>
+
+<p class="score">
+Score: <span id="score">0</span>/5
+</p>
+
+</div>
+
+<div id="result">
+
+<h2>🎉 Quest Complete!</h2>
+
+<p>
+You unlocked the final birthday surprise.
+</p>
+
+<a href="finale.html" class="btn">
+Enter The Finale 🎆 →
+</a>
+
+</div>
+
+</div>
+
+<script>
+
+const questions = [
+
+{
+question:"What belongs at a birthday party?",
+answers:["🚗 Car","🎂 Cake","🌧 Rain"],
+correct:1
+},
+
+{
+question:"Which one is usually given as a birthday gift?",
+answers:["🎁 Present","🧱 Brick","🔧 Wrench"],
+correct:0
+},
+
+{
+question:"What do people usually make before blowing candles?",
+answers:["A Wish","A Complaint","A Schedule"],
+correct:0
+},
+
+{
+question:"Which symbol matches this birthday adventure?",
+answers:["🌸 Flower","🌋 Volcano","🚀 Rocket"],
+correct:0
+},
+
+{
+question:"What should every birthday have?",
+answers:["Laughter","Homework","Traffic"],
+correct:0
+}
+
+];
+
+let current = 0;
+let score = 0;
+
+const questionEl =
+document.getElementById("question");
+
+const answersEl =
+document.getElementById("answers");
+
+function loadQuestion(){
+
+if(current >= questions.length){
+
+document.querySelector(".question-box")
+.style.display = "none";
+
+document.getElementById("result")
+.style.display = "block";
+
+return;
+
+}
+
+const q = questions[current];
+
+questionEl.innerHTML = q.question;
+
+answersEl.innerHTML = "";
+
+q.answers.forEach((answer,index)=>{
+
+const btn =
+document.createElement("button");
+
+btn.className = "answer-btn";
+
+btn.innerHTML = answer;
+
+btn.onclick = ()=>{
+
+if(index === q.correct){
+
+score++;
+
+document.getElementById("score")
+.innerHTML = score;
+
+}
+
+current++;
+
+loadQuestion();
+
+};
+
+answersEl.appendChild(btn);
+
+});
+
+}
+
+loadQuestion();
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Cake Room</title>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+.music-btn{
+margin:20px;
+}
+
+#cakeMessage{
+font-size:1.3rem;
+margin-top:20px;
+font-weight:bold;
+}
+
+#nextBtn{
+display:none;
+margin-top:30px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<nav>
+
+<a href="index.html">Home</a>
+<a href="about.html">About</a>
+<a href="cake.html">Cake</a>
+
+</nav>
+
+<div class="container">
+
+<h1>🎂 Cake Room 🎂</h1>
+
+<p>
+
+Make a wish and blow out all five candles.
+
+✨🎻🌸✨
+
+</p>
+
+<button class="btn music-btn" onclick="toggleMusic()">
+🎻 Play Fairy-Tale Music
+</button>
+
+<div class="candles">
+
+<div class="candle" onclick="birthdayCandle(this)">🔥</div>
+<div class="candle" onclick="birthdayCandle(this)">🔥</div>
+<div class="candle" onclick="birthdayCandle(this)">🔥</div>
+<div class="candle" onclick="birthdayCandle(this)">🔥</div>
+<div class="candle" onclick="birthdayCandle(this)">🔥</div>
+
+</div>
+
+<div class="cake">
+🎂
+</div>
+
+<p id="cakeMessage"></p>
+
+<a
+href="game.html"
+class="btn"
+id="nextBtn">
+
+Continue To Memory Match 🧠 →
+
+</a>
+
+</div>
+
+<audio id="fairyMusic" loop>
+<source src="assets/fairytale_music.mp3" type="audio/mpeg">
+</audio>
+
+<script src="script.js"></script>
+
+<script>
+
+let birthdayCount = 0;
+
+function birthdayCandle(candle){
+
+if(candle.dataset.done) return;
+
+candle.dataset.done = true;
+
+candle.innerHTML = "💨";
+
+birthdayCount++;
+
+if(birthdayCount === 5){
+
+document.getElementById("cakeMessage").innerHTML =
+"🎊 A birthday wish has been sent to the stars! ✨";
+
+launchConfetti();
+
+document.getElementById("nextBtn").style.display =
+"inline-block";
+
+}
+
+}
+
+function toggleMusic(){
+
+const music =
+document.getElementById("fairyMusic");
+
+if(music.paused){
+
+music.play();
+
+}else{
+
+music.pause();
+
+}
+
+}
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Memory Match</title>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+.memory-grid{
+display:grid;
+grid-template-columns:repeat(4,120px);
+gap:15px;
+justify-content:center;
+margin-top:40px;
+}
+
+.memory-card{
+width:120px;
+height:120px;
+background:white;
+border-radius:15px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:40px;
+cursor:pointer;
+transform-style:preserve-3d;
+transition:.5s;
+}
+
+.memory-card.flipped{
+background:#f8f4e3;
+}
+
+#winMessage{
+display:none;
+margin-top:30px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<nav>
+
+<a href="index.html">Home</a>
+<a href="about.html">About</a>
+<a href="cake.html">Cake</a>
+
+</nav>
+
+<div class="container">
+
+<h1>🧠 Memory Match</h1>
+
+<p>
+Match all pairs to unlock the Literary Library.
+</p>
+
+<div class="memory-grid" id="memoryGrid">
+
+</div>
+
+<div id="winMessage">
+
+<h2>🎉 Congratulations!</h2>
+
+<p>
+You completed the challenge.
+</p>
+
+<a href="library.html" class="btn">
+Enter Literary Library 📚 →
+</a>
+
+</div>
+
+</div>
+
+<script src="script.js"></script>
+
+<script>
+
+const icons = [
+"📚","📚",
+"🌸","🌸",
+"🎂","🎂",
+"⭐","⭐",
+"🎁","🎁",
+"🦋","🦋"
+];
+
+icons.sort(()=>Math.random()-0.5);
+
+const grid =
+document.getElementById("memoryGrid");
+
+let first = null;
+let second = null;
+let lock = false;
+let matched = 0;
+
+icons.forEach(icon=>{
+
+const card =
+document.createElement("div");
+
+card.className = "memory-card";
+
+card.dataset.icon = icon;
+
+card.innerHTML = "❓";
+
+card.onclick = ()=>{
+
+if(lock) return;
+
+if(card===first) return;
+
+card.innerHTML = icon;
+card.classList.add("flipped");
+
+if(!first){
+
+first = card;
+return;
+
+}
+
+second = card;
+
+if(first.dataset.icon === second.dataset.icon){
+
+matched += 2;
+
+first = null;
+second = null;
+
+if(matched === icons.length){
+
+document.getElementById("winMessage")
+.style.display = "block";
+
+}
+
+}else{
+
+lock = true;
+
+setTimeout(()=>{
+
+first.innerHTML = "❓";
+second.innerHTML = "❓";
+
+first.classList.remove("flipped");
+second.classList.remove("flipped");
+
+first = null;
+second = null;
+
+lock = false;
+
+},1000);
+
+}
+
+};
+
+grid.appendChild(card);
+
+});
+
+</script>
+
+</body>
+
+</html>

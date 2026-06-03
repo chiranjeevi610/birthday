@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Finale</title>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+body{
+overflow:hidden;
+}
+
+canvas{
+position:fixed;
+top:0;
+left:0;
+z-index:-1;
+}
+
+.final-box{
+min-height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:20px;
+}
+
+.final-box h1{
+font-size:3rem;
+margin-bottom:20px;
+}
+
+.final-message{
+max-width:850px;
+background:rgba(255,255,255,.5);
+padding:30px;
+border-radius:25px;
+backdrop-filter:blur(10px);
+}
+
+.secret{
+margin-top:30px;
+font-size:40px;
+cursor:pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<canvas id="fireworks"></canvas>
+
+<div class="final-box">
+
+<h1>🎆 Happy Birthday Pulkita 🎆</h1>
+
+<div class="final-message">
+
+<p>
+
+Today celebrates someone who is
+
+🌸 Genuine
+
+✨ Kind
+
+🦋 Compassionate
+
+⭐ Determined
+
+🌙 A Dreamer
+
+💪 Strong
+
+<br><br>
+
+May your year be filled with wonderful stories,
+new adventures,
+beautiful memories,
+exciting opportunities,
+and countless reasons to smile.
+
+<br><br>
+
+Keep believing in your dreams,
+keep growing,
+and keep being the amazing person you are.
+
+<br><br>
+
+✨📚🌸🦋🎂⭐✨
+
+<br><br>
+
+— Someone Who Wishes You The Very Best
+
+</p>
+
+</div>
+
+<div
+class="secret"
+onclick="secretEnding()">
+
+🌸
+
+</div>
+
+<p>
+Hidden Flower
+</p>
+
+</div>
+
+<script src="script.js"></script>
+
+<script>
+
+/* Secret Ending */
+
+function secretEnding(){
+
+alert(
+
+"🏆 Achievement Unlocked!\n\n" +
+
+"The Pulkita Chapter\n\n" +
+
+"Genuine.\n" +
+
+"Kind.\n" +
+
+"Compassionate.\n" +
+
+"Determined.\n" +
+
+"A Dreamer.\n" +
+
+"Strong.\n\n" +
+
+"Every great story has chapters yet to be written.\n\n" +
+
+"May your next chapter be your best one yet. ✨"
+
+);
+
+}
+
+/* Fireworks */
+
+const canvas =
+document.getElementById("fireworks");
+
+const ctx =
+canvas.getContext("2d");
+
+canvas.width =
+window.innerWidth;
+
+canvas.height =
+window.innerHeight;
+
+let particles=[];
+
+function createFirework(){
+
+let x =
+Math.random()*canvas.width;
+
+let y =
+Math.random()*canvas.height/2;
+
+for(let i=0;i<50;i++){
+
+particles.push({
+
+x:x,
+y:y,
+
+dx:(Math.random()-0.5)*6,
+dy:(Math.random()-0.5)*6,
+
+life:100
+
+});
+
+}
+
+}
+
+function animate(){
+
+ctx.clearRect(
+0,
+0,
+canvas.width,
+canvas.height
+);
+
+particles.forEach((p,index)=>{
+
+p.x+=p.dx;
+p.y+=p.dy;
+
+p.life--;
+
+ctx.beginPath();
+
+ctx.arc(
+p.x,
+p.y,
+3,
+0,
+Math.PI*2
+);
+
+ctx.fillStyle=
+`hsl(${p.life*3},100%,60%)`;
+
+ctx.fill();
+
+if(p.life<=0){
+
+particles.splice(index,1);
+
+}
+
+});
+
+requestAnimationFrame(
+animate
+);
+
+}
+
+setInterval(
+createFirework,
+1200
+);
+
+animate();
+
+</script>
+
+</body>
+
+</html>
